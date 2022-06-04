@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react'
+import image from './constant/Image'
+
+
+class App extends React.Component{
+constructor(){
+  super()
+  this.state ={
+    firstDice: {},
+    secondDice: {}
+
+  }
+  this.handleRandomAttack = this.handleRandomAttack.bind(this)
+}
+handleRandomAttack(){
+  let randomFirst = Math.ceil(Math.random() * 6);
+  let randomSecond = Math.ceil(Math.random() * 6);
+  console.log(randomFirst)
+  console.log(randomSecond)
+  this.setState({firstDice:{ image: image[`dice${randomFirst}`],
+  power: randomFirst
+},
+  secondDice: {image: image[`dice${randomSecond}`],
+  power: randomSecond
+}
+})
+
+}
+
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>player-1{this.state.firstDice.power > this.state.secondDice.power ?"wins" : 'lost'}</h1>
+      <h1>player-2{this.state.firstDice.power > this.state.secondDice.power ?"wins" : 'lost'}</h1>
+      
+      <img src={this.state.firstDice.image} width="200px" alt='' />
+      <br/>
+      <img src={this.state.secondDice.image} width="200px" alt=''/>
+
+
+      <button onClick={this.handleRandomAttack}>shake</button>
+
     </div>
   );
+  }
 }
 
 export default App;
